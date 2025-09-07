@@ -43,7 +43,7 @@ const displayTrees = (allTrees) => {
       <div class='w-full h-[150px] rounded-lg overflow-hidden'>
         <img class='w-full h-full' src="${tree.image}" alt="">
       </div>
-        <h6 class='my-2 font-bold '>${tree.name}</h6>
+        <h6 id='modal-btn' class='my-2 font-bold hover:underline hover:decoration-[#15803D] hover:underline-offset-4 hover:cursor-pointer w-fit'>${tree.name}</h6>
         <p class='max-h-[55px] text-sm text-ellipsis overflow-hidden'>${tree.description}</p>
         <div class='flex items-center justify-between my-4'>
         <button class="product-category text-sm font-semibold  rounded-full py-1 px-5 bg-[#DCFCE7] text-[#15803D]">${tree.category}</button>
@@ -51,6 +51,10 @@ const displayTrees = (allTrees) => {
         </div>
         <button class='bg-[#15803D] my-2 w-full py-1 text-white font-bold rounded-full'>Add to Cart</button>
     `;
+    const modalBtn = productCard.querySelector('#modal-btn');
+    modalBtn.addEventListener('click',()=>{
+        loadModal(tree);
+    })
         treesContainer.appendChild(productCard);
     })
 
@@ -58,16 +62,29 @@ const displayTrees = (allTrees) => {
 }
 
 
+const loadModal =(tree)=>{
+    const modal = document.getElementById('my_modal_5');
+    const modalBody = document.getElementById('modal-body');
+    modalBody.innerHTML=`
+     <h3 class='text-2xl font-bold mb-4'>${tree.name}</h3>
+    <img class='w-full max-h-64 rounded-lg mb-4' src="${tree.image}" alt="">
+    <p><span class="font-bold">Category: </span> 
+    <span>${tree.category}</span></p>
+    <p class='my-4'><span class="font-bold">Price: </span> 
+    <span>৳${tree.price}</span></p>
+    <p><span class="font-bold">Description: </span> 
+    <span>${tree.description}</span></p>
+    `
+    modal.showModal()
+}
+
 const loadSpinner =(status)=>{
 const spinner = document.getElementById('spinner');
 if(status===true){
     spinner.classList.remove('hidden')
-    console.log(spinner.classList)
 }
 if(status===false){
     spinner.classList.add('hidden')
-        console.log(spinner.classList)
-
 }
    
 
