@@ -9,7 +9,7 @@ const displayCategories = (categories) => {
     categories.forEach(category => {
         const categoryItem = document.createElement('div');
         categoryItem.innerHTML = `
-        <div onClick='loadCategoryTrees(${category.id})' class='cursor-pointer hover:bg category-item bg-[#15803D] hover:bg-[#1f964b] rounded-md text-white font-semibold p-2 mb-4'>
+        <div onClick='loadCategoryTrees(${category.id})' class=' cursor-pointer hover:bg category-item bg-[#15803D] hover:bg-[#1f964b] rounded-md text-white font-semibold p-2 mb-4'>
 ${category.category_name}
         </div>
         `

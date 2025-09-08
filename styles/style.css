@@ -5,3 +5,7 @@ body{
   font-family: "Inter", sans-serif;
 
 }
+
+.active{
+  background-color: #0c5828;
+}
