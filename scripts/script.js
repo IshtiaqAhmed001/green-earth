@@ -9,12 +9,25 @@ const displayCategories = (categories) => {
     categories.forEach(category => {
         const categoryItem = document.createElement('div');
         categoryItem.innerHTML = `
-        <div onClick='loadCategoryTrees(${category.id})' class=' cursor-pointer hover:bg category-item bg-[#15803D] hover:bg-[#1f964b] rounded-md text-white font-semibold p-2 mb-4'>
+        <div 
+        onClick='loadCategoryTrees(${category.id})' 
+        class=' cursor-pointer hover:bg category-item bg-[#15803D] hover:bg-[#1f964b] rounded-md text-white font-semibold p-2 mb-4'>
 ${category.category_name}
         </div>
         `
         categoryContainer.appendChild(categoryItem);
-    })
+
+        const allCategoryItems = categoryContainer.querySelectorAll('.category-item');
+
+        allCategoryItems.forEach(selectedItem => {
+            selectedItem.addEventListener('click', () => {
+                allCategoryItems.forEach(item => item.classList.remove('active'));
+                selectedItem.classList.add('active');
+            });
+        });
+
+
+    });
 }
 
 const LoadAllTrees = () => {
@@ -73,14 +86,13 @@ const addToCart = (id) => {
 
 }
 
-const removeFromCart =(id) =>{
-    console.log(cart)
-cart = cart.filter(item=>item.id !==id);
-displayCart();
+const removeFromCart = (id) => {
+    cart = cart.filter(item => item.id !== id);
+    displayCart();
 }
 
 const displayCart = (newItem) => {
-    if(newItem){
+    if (newItem) {
         alert(`${newItem.name} has been added to the cart!`);
     }
     const cartContainer = document.getElementById('cart-container');
@@ -89,18 +101,18 @@ const displayCart = (newItem) => {
 
     let cartTotal = 0;
 
-    if(cart.length===0){
- cartContainer.innerHTML = `<h3 class="text-center text-gray-500 font-semibold">Cart is empty</h3>`;
-        cartTotalContainer.innerText = ''; 
+    if (cart.length === 0) {
+        cartContainer.innerHTML = `<h3 class="text-center text-gray-500 font-semibold">Cart is empty</h3>`;
+        cartTotalContainer.innerText = '';
     }
 
-   else{
-     cart.forEach(item => {
-        cartTotal += parseInt(item.price);
+    else {
+        cart.forEach(item => {
+            cartTotal += parseInt(item.price);
 
-        const newEntry = document.createElement('div');
-        newEntry.className = 'cart-item flex justify-between items-center bg-[#F0FDF4] p-3 mb-2 rounded-md';
-        newEntry.innerHTML = `
+            const newEntry = document.createElement('div');
+            newEntry.className = 'cart-item flex justify-between items-center bg-[#F0FDF4] p-3 mb-2 rounded-md';
+            newEntry.innerHTML = `
 <div class="text-sm">
          <h5 class="font-bold mb-2">${item.name}</h5>
          <p>৳ <span class='cartItem-price'>${item.price}</span></p>
@@ -109,13 +121,13 @@ const displayCart = (newItem) => {
         x
        </button>
 `
-        cartContainer.appendChild(newEntry);
-    });
+            cartContainer.appendChild(newEntry);
+        });
 
-    cartTotalContainer.className='flex justify-end';
-    cartTotalContainer.innerHTML=`
+        cartTotalContainer.className = 'flex justify-end';
+        cartTotalContainer.innerHTML = `
     <h6 class="font-bold text-sm" >Total: <span id="cart-total">${cartTotal}</span></h6>`
-   }
+    }
 
 }
 
